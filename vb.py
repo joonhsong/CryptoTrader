@@ -20,7 +20,7 @@ import pyupbit
 import datetime
 import numpy as np
 
-# There are the keys you get from Upbit API
+# These are the keys you get from Upbit API
 access = "accesskey"
 secret = "secretkey"
 
