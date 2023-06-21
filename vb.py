@@ -21,8 +21,8 @@ import datetime
 import numpy as np
 
 # These are the keys you get from Upbit API
-access = "accesskey"
-secret = "secretkey"
+access = "ak"
+secret = "sk"
 
 # Returns the price of when to buy
 def get_target_price(ticker, k):
@@ -60,8 +60,7 @@ def get_ma14(ticker):
     if df is not None:
         print("Can iloc?")
         ma14 = df['close'].rolling(13).mean().iloc[-1]
-        print("GMA14 is:")
-        print(ma14)
+        print("MA14 is: " + str(ma14))
         return ma14
     else:
         print(f"No data for {ticker}")
