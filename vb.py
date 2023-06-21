@@ -55,14 +55,14 @@ def get_current_price(ticker):
     return pyupbit.get_orderbook(ticker=ticker)["orderbook_units"][0]["ask_price"]
 
 # Returns the moving average line of the past 14 days
-def get_ma15(ticker):
+def get_ma14(ticker):
     df = pyupbit.get_ohlcv(ticker, interval="day", count=14)
     if df is not None:
         print("Can iloc?")
-        ma15 = df['close'].rolling(13).mean().iloc[-1]
-        print("GMA15 is:")
-        print(ma15)
-        return ma15
+        ma14 = df['close'].rolling(13).mean().iloc[-1]
+        print("GMA14 is:")
+        print(ma14)
+        return ma14
     else:
         print(f"No data for {ticker}")
         return None
@@ -110,8 +110,8 @@ while True:
             print(k)
             target_price = get_target_price("KRW-BTC", k)
             current_price = get_current_price("KRW-BTC")
-            ma15 = get_ma15("KRW-BTC")
-            if target_price < current_price and ma15 < current_price:
+            ma14 = get_ma14("KRW-BTC")
+            if target_price < current_price and ma14 < current_price:
                 krw = get_balance("KRW")
                 # krw has to be more that 5000, as the least amount you can trade is 5000 won
                 if krw > 5000:
