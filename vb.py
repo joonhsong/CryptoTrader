@@ -25,15 +25,15 @@ access = "ak"
 secret = "sk"
 
 # Returns the price of when to buy
-def get_target_price(ticker, k):
-    print("GTP")
+def get_target_buying_price(ticker, k):
+    print("Target Buying Price Retrieved")
     df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
     target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k
     return target_price
 
 # Returns the start time of the market
 def get_start_time(ticker):
-    print("GST")
+    print("Starting Time Retrieved")
     df = pyupbit.get_ohlcv(ticker, interval="day", count=1)
     start_time = df.index[0]
     return start_time
@@ -51,14 +51,13 @@ def get_balance(ticker):
 
 # Returns the current price of the ticker
 def get_current_price(ticker):
-    print("GCP")
+    print("Current Price Retrieved")
     return pyupbit.get_orderbook(ticker=ticker)["orderbook_units"][0]["ask_price"]
 
 # Returns the moving average line of the past 14 days
 def get_ma14(ticker):
     df = pyupbit.get_ohlcv(ticker, interval="day", count=14)
     if df is not None:
-        print("Can iloc?")
         ma14 = df['close'].rolling(13).mean().iloc[-1]
         print("MA14 is: " + str(ma14))
         return ma14
@@ -89,7 +88,6 @@ def get_bestk():
         ror = get_ror(k)
         t[k] = ror
     maxk = max(t, key = t.get)
-    print("GB")
     return maxk
 
 # Belowe code buys crypto according to the target price and sells by the end of one market day (9AM)
@@ -106,11 +104,11 @@ while True:
 
         if start_time < now < end_time - datetime.timedelta(seconds=30):
             k = get_bestk()
-            print(k)
-            target_price = get_target_price("KRW-BTC", k)
+            print("Best k is: " + str(k))
+            target_bp = get_target_buying_price("KRW-BTC", k)
             current_price = get_current_price("KRW-BTC")
             ma14 = get_ma14("KRW-BTC")
-            if target_price < current_price and ma14 < current_price:
+            if target_bp < current_price and ma14 < current_price:
                 krw = get_balance("KRW")
                 # krw has to be more that 5000, as the least amount you can trade is 5000 won
                 if krw > 5000:
@@ -128,4 +126,4 @@ while True:
         print(e)
         time.sleep(1)
 
-print("End of Trade")
+print("END of Trade")
