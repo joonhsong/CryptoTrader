@@ -103,7 +103,7 @@ while True:
             target_bp = get_target_buying_price("KRW-BTC", k)
             current_price = get_current_price("KRW-BTC")
             ma14 = get_ma14("KRW-BTC")
-            if target_bp < current_price and ma14 < current_price:
+            if target_bp =< current_price and ma14 =< current_price:
                 krw = get_balance("KRW")
                 # krw has to be more that 5000, as the least amount you can trade is 5000 won
                 if krw > 5000:
