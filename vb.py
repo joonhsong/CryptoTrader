@@ -26,14 +26,12 @@ secret = "sk"
 
 # Returns the price of when to buy
 def get_target_buying_price(ticker, k):
-    print("Target Buying Price Retrieved")
     df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
     target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k
     return target_price
 
 # Returns the start time of the market
 def get_start_time(ticker):
-    print("Starting Time Retrieved")
     df = pyupbit.get_ohlcv(ticker, interval="day", count=1)
     start_time = df.index[0]
     return start_time
@@ -51,7 +49,6 @@ def get_balance(ticker):
 
 # Returns the current price of the ticker
 def get_current_price(ticker):
-    print("Current Price Retrieved")
     return pyupbit.get_orderbook(ticker=ticker)["orderbook_units"][0]["ask_price"]
 
 # Returns the moving average line of the past 14 days
@@ -59,7 +56,6 @@ def get_ma14(ticker):
     df = pyupbit.get_ohlcv(ticker, interval="day", count=14)
     if df is not None:
         ma14 = df['close'].rolling(13).mean().iloc[-1]
-        print("MA14 is: " + str(ma14))
         return ma14
     else:
         print(f"No data for {ticker}")
@@ -90,7 +86,7 @@ def get_bestk():
     maxk = max(t, key = t.get)
     return maxk
 
-# Belowe code buys crypto according to the target price and sells by the end of one market day (9AM)
+# Below code buys crypto according to the target price and sells by the end of one market day (9AM)
 
 # Log in with your access and secret key
 upbit = pyupbit.Upbit(access, secret)
@@ -104,7 +100,6 @@ while True:
 
         if start_time < now < end_time - datetime.timedelta(seconds=30):
             k = get_bestk()
-            print("Best k is: " + str(k))
             target_bp = get_target_buying_price("KRW-BTC", k)
             current_price = get_current_price("KRW-BTC")
             ma14 = get_ma14("KRW-BTC")
@@ -113,7 +108,8 @@ while True:
                 # krw has to be more that 5000, as the least amount you can trade is 5000 won
                 if krw > 5000:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
-                    print("BTC bought")
+                    print("Best k is: " + str(k))
+                    print("BTC bought at: " + str(current_price))
         else:
             btc = get_balance("BTC")
             # btc has to be more than 0.00008, which is about 5000 won
