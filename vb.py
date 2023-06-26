@@ -21,8 +21,8 @@ import datetime
 import numpy as np
 
 # These are the keys you get from Upbit API
-access = "ak"
-secret = "sk"
+access = "a"
+secret = "s"
 
 # Returns the price of when to buy
 def get_target_buying_price(ticker, k):
@@ -91,31 +91,51 @@ def get_bestk():
 # Log in with your access and secret key
 upbit = pyupbit.Upbit(access, secret)
 print("START TRADING")
+# Bought Price
+bp = 0 
+# Sudden drop limit. This is used to defend from sudden drop and losing too much.
+sdl = -0.015
+# This keeps track of percent loss or gain after buying
+pgl = 0
 
 while True:
     try:
         now = datetime.datetime.now()
         start_time = get_start_time("KRW-BTC")
         end_time = start_time + datetime.timedelta(days=1)
+        current_price = get_current_price("KRW-BTC")
+        if bp != 0:
+            pgl = (current_price - bp)/bp
 
         if start_time < now < end_time - datetime.timedelta(seconds=30):
             k = get_bestk()
             target_bp = get_target_buying_price("KRW-BTC", k)
-            current_price = get_current_price("KRW-BTC")
             ma14 = get_ma14("KRW-BTC")
-            if target_bp =< current_price and ma14 =< current_price:
+            if target_bp < current_price and ma14 < current_price:
                 krw = get_balance("KRW")
                 # krw has to be more that 5000, as the least amount you can trade is 5000 won
                 if krw > 5000:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
                     print("Best k is: " + str(k))
                     print("BTC bought at: " + str(current_price))
+                    bp = current_price
+            # If there is sudden dropping trend, sell before going too low to minimize loss
+            elif pgl < sdl:
+                btc = get_balance("BTC")
+                # btc has to be more than 0.00008, which is about 5000 won
+                if btc > 0.00008:
+                    upbit.sell_market_order("KRW-BTC", btc*0.9995)
+                    print("BTC sold")
+                    bp = 0
+                    pgl = 0
+            
         else:
             btc = get_balance("BTC")
             # btc has to be more than 0.00008, which is about 5000 won
             if btc > 0.00008:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
                 print("BTC sold")
+                bp = 0
                 break
         time.sleep(1)
     except Exception as e:
