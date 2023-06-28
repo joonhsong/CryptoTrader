@@ -128,11 +128,10 @@ while True:
                     print("BTC sold")
                     bp = 0
                     pgl = 0
-            
+        # Sell coin at the end of market day
         else:
             btc = get_balance("BTC")
-            # btc has to be more than 0.00008, which is about 5000 won
-            if btc > 0.00008:
+            if btc > 5000/current_price:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
                 print("BTC sold")
                 bp = 0
