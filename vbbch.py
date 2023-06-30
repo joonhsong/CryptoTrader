@@ -123,7 +123,7 @@ while True:
             elif pgl < sdl:
                 bch = get_balance("BCH")
                 # BCH has to be more than 0.00008, which is about 5000 won
-                if bch > 0.00008:
+                if bch > 5000/current_price:
                     upbit.sell_market_order("KRW-BCH", bch*0.9995)
                     print("BCH sold")
                     bp = 0
