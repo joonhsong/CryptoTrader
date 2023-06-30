@@ -94,7 +94,7 @@ print("START TRADING")
 # Bought Price
 bp = 0 
 # Sudden drop limit. This is used to defend from sudden drop and losing too much. This should be negative.
-sdl = -0.015
+sdl = -0.02
 # This keeps track of percent loss or gain after buying
 pgl = 0
 
@@ -123,7 +123,7 @@ while True:
             elif pgl < sdl:
                 btc = get_balance("BTC")
                 # btc has to be more than 0.00008, which is about 5000 won
-                if btc > 0.00008:
+                if btc > 5000/current_price:
                     upbit.sell_market_order("KRW-BTC", btc*0.9995)
                     print("BTC sold")
                     bp = 0
