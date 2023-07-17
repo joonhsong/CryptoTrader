@@ -1,5 +1,12 @@
 # Trading Bot for Upbit
 
+## Files
+- Strategy Trading
+- LSTM Trading
+- Informer Trading
+- Prophet Trading
+- GNB Trading
+
 ## Purpose
 This repository focuses on exploring multiple algorithms, machine learning models and strategies that can be used in forecasting
 time series data, which can be applied to stock or crypto currency market predictions.
