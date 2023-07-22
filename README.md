@@ -25,5 +25,8 @@ I wanted to build a system that analyzes and forecasts multiple crypto currencie
 
 There are some limitations on using LSTM and transformer for prediction in time series data. Firstly, the quadratic computation of self attention makes the time complexity O(n^2). Additionally, there is also a memory bottleneck in stacking layers for long inputs. Moreover, there is a speed plunge in the prediction of long outputs in the step by step decoding. There have been several suggestions of new models based on transformer to solve the such problems. For example, the model reformer is only specialized for extremely long input sequence. Likewise, models suggested focus on improving one weakness of transformer out of multiple. On the other hand, the informer model is suggested to improve on all three weaknesses that I have mentioned above. 
 
+## DISCLAIMER
+It is always the user's responsibility when investing money into crypto currency. Although these code algorithms have been developed so that it tries to maximize profit and minimize loss, there is always a possibility of losing money according to the market as the prices may decrease.
+
 First of all, informer suggests that while using transformer based model, it proposes ProbSparse self attention mechanism to reduce time complexity and memory usage to O(nlogn). Also, it proposes generative style decoder, which lets the model to have long sequence output with only one forward step, preventing cumulative error that can be caused in the step by step inference. 
 The paper defines Long Sequence Time-series Forecasting (LSTF) to have an output length of 48 or greater. 
