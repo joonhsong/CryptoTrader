@@ -1,7 +1,7 @@
 '''
-This code is solely designed by Joon Song, myself. I have tried to create code that analyzes 
-which crypto currency has the most upward movement. If it detects a sudden upward movement, it buys the coin and 
-sells at given percentage return. It detects the movement by looking at the price 
+The purpose of this code is to test algorithms that does not require complicated AI knowledge.
+I have tried to create code that analyzes which crypto currency has the most upward movement. If it detects a sudden upward movement, 
+it buys the coin and sells at given percentage return. It detects the movement by looking at the price 
 change in the past 4 minutes and the moving average of the past 12 minutes. 
 This code automatically chooses the currency with most upward movement and tries to make profit from the movement. 
 It only chooses currencies with the top 15% trading volume to avoid buying annomalies in less traded coins. 
