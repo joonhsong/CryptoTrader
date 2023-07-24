@@ -15,7 +15,7 @@ to predict crypto currency price or return using Upbit API, in which Upbit is th
 
 ## Focus and Purpose
 Many sources from the Internet describe how to use LSTM model to predict stock/crypto price. However, in recent years, transformer has replaced many models including
-LSTM and RNN, which makes using LSTM feel outdated. Consequently, I will be researching more on how to apply transformer, informer particularly, on
+LSTM and RNN, which makes using LSTM feel outdated. Also, I have tried to use LSTM model, but the learning process was quite slow. Consequently, I will be researching more on how to apply transformer, informer particularly, on
 predicting the market. I want to focus on exploring informer suggested in the paper "Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting", as it 
 suggests improvements on original transformer model and apply it to time series data for forecasting.
 There have been many attempts to use AI/machine learning to decide when to buy and sell. Not only that, I intend to let AI decide which coin to invest in.
