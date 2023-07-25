@@ -29,7 +29,7 @@ There are some limitations on using LSTM and transformer for prediction in time 
 First of all, informer suggests that while using transformer based model, it proposes ProbSparse self attention mechanism to reduce time complexity and memory usage to O(nlogn). Also, it proposes generative style decoder, which lets the model to have long sequence output with only one forward step, preventing cumulative error that can be caused in the step by step inference. 
 The paper defines Long Sequence Time-series Forecasting (LSTF) to have an output length of 48 or greater. 
 
-## DISCLAIMER
+## DISCLAIMER / WARNING
 It is always the user's responsibility when investing money into crypto currency. Although these code algorithms have been developed so that it tries to maximize profit and minimize loss, there is always a possibility of losing money according to the market as the prices may decrease.
 
 
